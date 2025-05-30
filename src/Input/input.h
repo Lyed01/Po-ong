@@ -1,0 +1,1 @@
+//Declara funciones para inicializar y manejar la entrada del usuario (teclado, eventos SDL).
