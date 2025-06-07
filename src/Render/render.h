@@ -3,6 +3,7 @@
 #ifndef IMAGENES_H
 #define IMAGENES_H
 
+#include "render.c"
 #include <string>
 #include <SDL.h>
 #include <SDL_image.h>
