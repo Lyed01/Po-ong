@@ -8,13 +8,16 @@ void onKeyUp(int keyCode){
 	case SDLK_DOWN:
 		IA.abajo = false;
 		break;
+	case SDLK_RIGHT:
+		jugador.special = false;
+		break;
 	case SDLK_w:
 		jugador.arriba = false;
 		break;
 	case SDLK_s:
 		jugador.abajo = false;
 		break;
-	case SDLK_RIGHT:
+	case SDLK_a:
 		jugador.special = false;
 		break;
 	default:
@@ -31,13 +34,16 @@ void onKeyDown(int keyCode){
 	case SDLK_DOWN:
 		IA.abajo = true;
 		break;
+	case SDLK_RIGHT:
+		jugador.special = true;
+		break;
 	case SDLK_w:
 		jugador.arriba = true;
 		break;
 	case SDLK_s:
 		jugador.abajo = true;
 		break;
-	case SDLK_RIGHT:
+	case SDLK_a:
 		jugador.special = true;
 		break;
 	case SDLK_ESCAPE:
