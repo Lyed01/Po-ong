@@ -1,24 +1,25 @@
 //Implementa la captura de eventos SDL, actualización de estados de teclas presionadas y comunicación de esas acciones al juego.
+
 void onKeyUp(int keyCode){
 	switch (keyCode)
 	{
 	case SDLK_UP:
-		IA.arriba = false;
+		player.arriba = false;
 		break;
 	case SDLK_DOWN:
-		IA.abajo = false;
+		player.abajo = false;
 		break;
 	case SDLK_RIGHT:
-		jugador.special = false;
+		player.special = false;
 		break;
 	case SDLK_w:
-		jugador.arriba = false;
+		player.arriba = false;
 		break;
 	case SDLK_s:
-		jugador.abajo = false;
+		player.abajo = false;
 		break;
-	case SDLK_a:
-		jugador.special = false;
+	case SDLK_d:
+		player.special = false;
 		break;
 	default:
 		break;
@@ -29,22 +30,22 @@ void onKeyDown(int keyCode){
 	switch (keyCode)
 	{
 	case SDLK_UP:
-		IA.arriba = true;
+		player.arriba = true;
 		break;
 	case SDLK_DOWN:
-		IA.abajo = true;
+		player.abajo = true;
 		break;
 	case SDLK_RIGHT:
-		jugador.special = true;
+		player.special = true;
 		break;
 	case SDLK_w:
-		jugador.arriba = true;
+		player.arriba = true;
 		break;
 	case SDLK_s:
-		jugador.abajo = true;
+		player.abajo = true;
 		break;
-	case SDLK_a:
-		jugador.special = true;
+	case SDLK_d:
+		player.special = true;
 		break;
 	case SDLK_ESCAPE:
 		isGameRunning = false;
@@ -60,7 +61,7 @@ void processInput(){
 	{
 		switch (event.type)
 		{
-		if SDL_KEYDOWN:
+		case SDL_KEYDOWN:
 			onKeyDown(event.key.keysym.sym);
 			break;
 		case SDL_KEYUP:
@@ -72,26 +73,31 @@ void processInput(){
 	}
 }
 
-void Movement(){
-	if (jugador.arriba == true)
+//variables locales para movimiento
+int posXOriginal;
+bool volver = false;
+
+void movement(){
+	if (player.arriba == true)
 	{
-		jugador.posY -= jugador.velocidad / 100.0;
+		player.posY -= player.velocidad / 100.0;
 	}
-	if (jugador.abajo)
+	if (player.abajo)
 	{
-		jugador.posY += jugador.velocidad / 100.0;
+		player.posY += player.velocidad / 100.0;
 	}
 
-	if (jugador.special == true){
-		posXOriginal = jugador.posX; // Guardar la posición original antes de moverse
-		jugador.posX += jugador.velocidad / 10.0;
+	if (player.special == true){
+		posXOriginal = player.posX; // Guardar la posición original antes de moverse
+		player.posX += player.velocidad / 10.0;
 		volver = true;
 	}
+	//Agregar un clock para completar el volver. Luego implementarlo para la ia tambien
 	if (volver == true) {
 		// Volver suavemente hacia la posición original
-		if (jugador.posX != posXOriginal){
-			jugador.posX -= jugador.velocidad / 2.0;
-			jugador.posX = posXOriginal;
+		if (player.posX != posXOriginal){
+			player.posX -= player.velocidad / 2.0;
+			player.posX = posXOriginal;
 			volver = false;
 		}
 		else
@@ -100,13 +106,13 @@ void Movement(){
 		}
 	}
 
-	if (IA.arriba == true)
+	if (ia.arriba == true)
 	{
-		IA.posY -= IA.velocidad / 100.0;
+		ia.posY -= ia.velocidad / 100.0;
 	}
-	if (IA.abajo)
+	if (ia.abajo)
 	{
-		IA.posY += IA.velocidad / 100.0;
+		ia.posY += ia.velocidad / 100.0;
 	}
 
 	ball.posX += ball.velocidadX / 100;

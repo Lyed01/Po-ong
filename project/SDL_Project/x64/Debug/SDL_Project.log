@@ -1,0 +1,112 @@
+﻿  SDL_Project.cpp
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(7,3): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(10,3): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(13,3): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(16,3): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(19,3): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(22,3): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(33,3): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(36,3): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(39,3): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(42,3): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(45,3): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(48,3): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(51,3): error C2065: 'isGameRunning': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(81,6): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(83,3): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(83,18): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(85,6): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(87,3): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(87,18): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(90,6): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(91,18): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(92,3): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(92,18): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(98,7): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(99,4): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(99,19): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(100,4): error C2065: 'player': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(109,6): error C2065: 'ia': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(111,3): error C2065: 'ia': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(111,14): error C2065: 'ia': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(113,6): error C2065: 'ia': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(115,3): error C2065: 'ia': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(115,14): error C2065: 'ia': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(118,2): error C2065: 'ball': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(118,15): error C2065: 'ball': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(119,2): error C2065: 'ball': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
+C:\Users\Max\Downloads\Po-ong-main\src\Input\input.c(119,15): error C2065: 'ball': undeclared identifier
+  (compiling source file '../src/SDL_Project.cpp')
+  
