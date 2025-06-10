@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Archivos de origen">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Archivos de recursos">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Game">
+      <UniqueIdentifier>{9e923bbc-a489-4c4c-bad9-39a7d8e32f70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Input">
+      <UniqueIdentifier>{c721adf0-9d12-4cbc-a30e-a8c2e1348480}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Ball">
+      <UniqueIdentifier>{0f0b28cd-c10b-460b-ac54-5c0376516277}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Player">
+      <UniqueIdentifier>{8fc875b7-c39a-4d6b-b280-3627dc213d9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Ia">
+      <UniqueIdentifier>{5a84ef73-b18a-481a-9daa-5c527eb508c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Render">
+      <UniqueIdentifier>{46e8fe97-cade-4675-93bf-85afc7270c5a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Archivos de encabezado\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>Archivos de encabezado\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="ball.cpp">
+      <Filter>Archivos de encabezado\Ball</Filter>
+    </ClCompile>
+    <ClCompile Include="ia.cpp">
+      <Filter>Archivos de encabezado\Ia</Filter>
+    </ClCompile>
+    <ClCompile Include="render.cpp">
+      <Filter>Archivos de encabezado\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>Archivos de encabezado\Player</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h">
+      <Filter>Archivos de encabezado\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Archivos de encabezado\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Ball.h">
+      <Filter>Archivos de encabezado\Ball</Filter>
+    </ClInclude>
+    <ClInclude Include="Ia.h">
+      <Filter>Archivos de encabezado\Ia</Filter>
+    </ClInclude>
+    <ClInclude Include="Render.h">
+      <Filter>Archivos de encabezado\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Archivos de encabezado\Player</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
