@@ -1,18 +1,20 @@
-//Implementa las funciones que manejan la carga de im·ge	nes (texturas SDL), dibujo de sprites y manejo del buffer gr·fico para mostrar en pantalla.
+//Implementa las funciones que manejan la carga de im√°ge	nes (texturas SDL), dibujo de sprites y manejo del buffer gr√°fico para mostrar en pantalla.
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
-SDL_Texture* CargarLaImagen(string filename, SDL_Renderer* renderer)
+using namespace std;
+
+SDL_Texture* cargarLaImagen(string filename, SDL_Renderer* renderer)
 {
 	SDL_Texture* texture; //variable temporal
 	texture = IMG_LoadTexture(renderer, filename.c_str());
 	return texture;
 }
 
-void MostrarLaImagen(SDL_Texture* texture, int x, int y, SDL_Renderer* renderer)
+void mostrarLaImagen(SDL_Texture* texture, int x, int y, SDL_Renderer* renderer)
 {
 	SDL_Rect dest; //vacio
-
-	//Posicion
+  
+  //Posicion
 	dest.x = x;
 	dest.y = y;
 
@@ -20,4 +22,3 @@ void MostrarLaImagen(SDL_Texture* texture, int x, int y, SDL_Renderer* renderer)
 	SDL_QueryTexture(texture, NULL, NULL, &dest.w, &dest.h);
 	SDL_RenderCopy(renderer, texture, NULL, &dest);
 }
-
