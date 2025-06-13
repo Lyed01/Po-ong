@@ -1,10 +1,10 @@
 #pragma once
-//Declara funciones para cargar im·genes, dibujar texturas en pantalla, limpiar y actualizar el renderizador.
+//Declara funciones para cargar im√°genes, dibujar texturas en pantalla, limpiar y actualizar el renderizador.
 
 #ifndef IMAGENES_H
 #define IMAGENES_H
 
-#include "render.c"
+#include "render.cpp"
 #include <string>
 #include <SDL.h>
 #include <SDL_image.h>
