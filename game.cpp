@@ -38,8 +38,8 @@ void render() {
 
 static void updateGame(){
 	movement();
-	//checkCollisionsWall();
-	//checkColisionsPlayer();
+	checkCollisionsWall();
+	checkColisionsPlayer();
 }
 
 static void initGame(){
