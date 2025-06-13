@@ -1,12 +1,10 @@
 #include <iostream>
-#include <SDL.h>
-#include <SDL_image.h>
 #include <SDL_ttf.h>
-#include "Player/player.h"
-#include "Render/render.h"
-#include "Input/input.h"
-#include "Ball/ball.h"
-#include "IA/ia.h"
+#include "../Player/player.h"
+#include "../Render/render.h"
+#include "../Input/input.h"
+#include "../Ball/ball.h"
+#include "../IA/ia.h"
 
 using namespace std;
 
