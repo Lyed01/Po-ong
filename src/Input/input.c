@@ -1,5 +1,5 @@
 //Implementa la captura de eventos SDL, actualización de estados de teclas presionadas y comunicación de esas acciones al juego.
-
+#include "input.h"
 void onKeyUp(int keyCode){
 	switch (keyCode)
 	{
