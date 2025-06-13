@@ -1,18 +1,16 @@
 #pragma once
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
-#include "pelota.h"
+#include "ball.h"
 
-void CheckCollisions(Pelota* pelota, int ventanaAncho, int ventanaAlto)
-{
-    if (pelota.posY > ventanaAlto)
+void checkCollisions(Ball* ball, int ventanaAncho, int ventanaAlto){
+    if (ball.posY > ventanaAlto)
     {
-        pelota.velocidadY *= -1;
+        ball.velocidadY *= -1;
     }
-
-    if (pelota.posY < 0)
+   
+    if (ball.posY < 0)
     {
-        pelota.velocidadY *= -1;
+        ball.velocidadY *= -1;
     }
-
 }
