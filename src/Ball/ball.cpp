@@ -1,6 +1,6 @@
 #include "ball.h"
 
-void checkCollisions(Ball* ball, int ventanaAncho, int ventanaAlto){
+/*void checkCollisions(Ball* ball, int ventanaAncho, int ventanaAlto){
     if (ball.posY > ventanaAlto)
     {
         ball.velocidadY *= -1;
@@ -11,3 +11,5 @@ void checkCollisions(Ball* ball, int ventanaAncho, int ventanaAlto){
         ball.velocidadY *= -1;
     }
 }
+*/
+//Probablemente esto hay que moverlo a game.cpp porque al no estar inicializada la bola no puede mover el objewt

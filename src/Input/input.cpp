@@ -1,5 +1,7 @@
 //Implementa la captura de eventos SDL, actualización de estados de teclas presionadas y comunicación de esas acciones al juego.
 #include "input.h"
+#include <SDL.h>
+#include "../Game/game.cpp"
 
 
 int posXOriginal;
@@ -10,19 +12,19 @@ void onKeyUp(int keyCode)
 	switch (keyCode)
 	{
 	case SDLK_UP:
-		player.arriba = false;
+		player.up = false;
 		break;
 	case SDLK_DOWN:
-		player.abajo = false;
+		player.down = false;
 		break;
 	case SDLK_RIGHT:
 		player.special = false;
 		break;
 	case SDLK_w:
-		player.arriba = false;
+		player.up = false;
 		break;
 	case SDLK_s:
-		player.abajo = false;
+		player.down = false;
 		break;
 	case SDLK_d:
 		player.special = false;
@@ -38,19 +40,19 @@ void onKeyDown(int keyCode)
 	switch (keyCode)
 	{
 	case SDLK_UP:
-		player.arriba = true;
+		player.up = true;
 		break;
 	case SDLK_DOWN:
-		player.abajo = true;
+		player.down = true;
 		break;
 	case SDLK_RIGHT:
 		player.special = true;
 		break;
 	case SDLK_w:
-		player.arriba = true;
+		player.up = true;
 		break;
 	case SDLK_s:
-		player.abajo = true;
+		player.down = true;
 		break;
 	case SDLK_d:
 		player.special = true;
@@ -84,25 +86,25 @@ void processInput()
 
 void movement()
 {
-	if (player.arriba == true)
+	if (player.up == true)
 	{
-		player.posY -= player.velocidad / 100.0;
+		player.posY -= player.speed / 100.0;
 	}
-	if (player.abajo)
+	if (player.down)
 	{
-		player.posY += player.velocidad / 100.0;
+		player.posY += player.speed / 100.0;
 	}
 
 	if (player.special == true) {
 		posXOriginal = player.posX; // Guardar la posición original antes de moverse
-		player.posX += player.velocidad / 10.0;
+		player.posX += player.speed / 10.0;
 		volver = true;
 	}
 	//Agregar un clock para completar el volver. Luego implementarlo para la ia tambien
 	if (volver == true) {
 		// Volver suavemente hacia la posición original
 		if (player.posX != posXOriginal) {
-			player.posX -= player.velocidad / 2.0;
+			player.posX -= player.speed / 2.0;
 			player.posX = posXOriginal;
 			volver = false;
 		}
@@ -112,13 +114,13 @@ void movement()
 		}
 	}
 
-	if (ia.arriba == true)
+	if (ia.up == true)
 	{
-		ia.posY -= ia.velocidad / 100.0;
+		ia.posY -= ia.speed / 100.0;
 	}
-	if (ia.abajo)
+	if (ia.down)
 	{
-		ia.posY += ia.velocidad / 100.0;
+		ia.posY += ia.speed / 100.0;
 	}
 
 	ball.posX += ball.velocidadX / 100;

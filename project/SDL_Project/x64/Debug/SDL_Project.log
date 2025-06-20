@@ -1,4 +1,23 @@
-﻿  SDL_Project.cpp
-SDL_Project.obj : error LNK2019: símbolo externo "void __cdecl processInput(void)" (?processInput@@YAXXZ) sin resolver al que se hace referencia en la función "void __cdecl runGame(void)" (?runGame@@YAXXZ)
-SDL_Project.obj : error LNK2019: símbolo externo "void __cdecl movement(void)" (?movement@@YAXXZ) sin resolver al que se hace referencia en la función "void __cdecl updateGame(void)" (?updateGame@@YAXXZ)
-C:\Users\alu665\Pictures\Po-ong-v2\project\x64\Debug\SDL_Project.exe : fatal error LNK1120: 2 externos sin resolver
+﻿game.obj : error LNK2005: ya se definió "void __cdecl render(void)" (?render@@YAXXZ) en SDL_Project.obj
+game.obj : error LNK2005: ya se definió "struct SDL_Renderer * renderer" (?renderer@@3PEAUSDL_Renderer@@EA) en SDL_Project.obj
+game.obj : error LNK2005: ya se definió "struct SDL_Window * window" (?window@@3PEAUSDL_Window@@EA) en SDL_Project.obj
+game.obj : error LNK2005: ya se definió "struct SDL_Texture * imagenJugador" (?imagenJugador@@3PEAUSDL_Texture@@EA) en SDL_Project.obj
+game.obj : error LNK2005: ya se definió "struct SDL_Texture * imagenIA" (?imagenIA@@3PEAUSDL_Texture@@EA) en SDL_Project.obj
+game.obj : error LNK2005: ya se definió "struct SDL_Texture * imagenPelota" (?imagenPelota@@3PEAUSDL_Texture@@EA) en SDL_Project.obj
+game.obj : error LNK2005: ya se definió "bool isGameRunning" (?isGameRunning@@3_NA) en SDL_Project.obj
+game.obj : error LNK2005: ya se definió "struct Ball ball" (?ball@@3UBall@@A) en SDL_Project.obj
+game.obj : error LNK2005: ya se definió "struct Player player" (?player@@3UPlayer@@A) en SDL_Project.obj
+game.obj : error LNK2005: ya se definió "struct Player ia" (?ia@@3UPlayer@@A) en SDL_Project.obj
+input.obj : error LNK2005: ya se definió "void __cdecl checkCollisions(int,int)" (?checkCollisions@@YAXHH@Z) en game.obj
+input.obj : error LNK2005: ya se definió "void __cdecl player_init(float,float)" (?player_init@@YAXMM@Z) en game.obj
+input.obj : error LNK2005: ya se definió "void __cdecl render(void)" (?render@@YAXXZ) en SDL_Project.obj
+input.obj : error LNK2005: ya se definió "struct SDL_Renderer * renderer" (?renderer@@3PEAUSDL_Renderer@@EA) en SDL_Project.obj
+input.obj : error LNK2005: ya se definió "struct SDL_Window * window" (?window@@3PEAUSDL_Window@@EA) en SDL_Project.obj
+input.obj : error LNK2005: ya se definió "struct SDL_Texture * imagenJugador" (?imagenJugador@@3PEAUSDL_Texture@@EA) en SDL_Project.obj
+input.obj : error LNK2005: ya se definió "struct SDL_Texture * imagenIA" (?imagenIA@@3PEAUSDL_Texture@@EA) en SDL_Project.obj
+input.obj : error LNK2005: ya se definió "struct SDL_Texture * imagenPelota" (?imagenPelota@@3PEAUSDL_Texture@@EA) en SDL_Project.obj
+input.obj : error LNK2005: ya se definió "bool isGameRunning" (?isGameRunning@@3_NA) en SDL_Project.obj
+input.obj : error LNK2005: ya se definió "struct Ball ball" (?ball@@3UBall@@A) en SDL_Project.obj
+input.obj : error LNK2005: ya se definió "struct Player player" (?player@@3UPlayer@@A) en SDL_Project.obj
+input.obj : error LNK2005: ya se definió "struct Player ia" (?ia@@3UPlayer@@A) en SDL_Project.obj
+C:\Users\Casto\Source\Repos\Po-ong\project\x64\Debug\SDL_Project.exe : fatal error LNK1169: se encontraron uno o más símbolos definidos simultáneamente

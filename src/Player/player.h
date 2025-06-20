@@ -9,10 +9,14 @@
 typedef struct Player {
     int posY;
     int posX;
-    float velocidad;
-    bool arriba = false;
-    bool abajo = false;
+    int width;
+    int height;
+    float speed;
+    bool up = false;
+    bool down = false;
     bool special = false;
+    
+
 } Player;
 
 

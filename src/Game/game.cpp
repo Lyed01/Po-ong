@@ -20,7 +20,27 @@ Ball ball;
 
 //float tiempoActual = SDL_GetTicks();
 
+//Posible solucion al error de pelotas
+void checkCollisions(int ventanaAncho, int ventanaAlto) {
+	if (ball.posY > ventanaAlto)
+	{
+		ball.velocidadY *= -1;
+	}
 
+	if (ball.posY < 0)
+	{
+		ball.velocidadY *= -1;
+	}
+}
+
+
+void player_init(float x, float y) {
+	player.posX = x;         // ?? Establece la posición inicial en x
+	player.posY = y;         // ?? Establece la posición inicial en y
+	player.width = 10;    // ?? Valor fijo de ancho
+	player.height = 60;   // ?? Valor fijo de alto
+	player.speed = 300;   // ?? El jugador se moverá 300 píxeles por segundo
+};
 void render() {
 	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
 	SDL_RenderClear(renderer);
