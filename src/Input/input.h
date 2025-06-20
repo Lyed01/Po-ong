@@ -4,9 +4,8 @@
 #define INPUT_H
 
 
-
-void onKeyUp();
-void onKeyDown();
+void onKeyUp(int keyCode);
+void onKeyDown(int keyCode);
 void processInput();
 void movement();
 
