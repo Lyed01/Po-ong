@@ -3,6 +3,8 @@
 
 typedef struct Ball
 {
+    int height;
+    int width;
     int posX;
     int posY;
     float velocidadX;

@@ -3,8 +3,6 @@
 
 #ifndef GAME_H
 #define GAME_H
-#include "game.cpp"
-
 
 
 // Inicia y ejecuta el ciclo principal del juego

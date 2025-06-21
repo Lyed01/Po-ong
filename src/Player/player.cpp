@@ -1,6 +1,7 @@
 //Implementa la lógica para mover la paleta según el input, manejar límites de movimiento y dibujar la paleta en pantalla.
 #include "player.h"   // ?? Incluye el header que define la estructura y las funciones
-#include <stdio.h>    
+#include <stdio.h>
+#include "../globals.h"
 /* player_init(Player* player, float x, float y) {
     player.x = x;         // ?? Establece la posición inicial en x
     player.y = y;         // ?? Establece la posición inicial en y

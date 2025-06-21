@@ -2,8 +2,7 @@
 // Declara las funciones para inicializar la paleta
 // , actualizar su posición y dibujarla, además de funciones para obtener su posición o estado.
 // player.h
-#ifndef PLAYER_H     
-#define PLAYER_H      
+#pragma once     
 
 // Estructura del jugador
 typedef struct Player {
@@ -19,7 +18,3 @@ typedef struct Player {
 
 } Player;
 
-
-
-
-#endif 

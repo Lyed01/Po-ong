@@ -1,7 +1,7 @@
 //Implementa la captura de eventos SDL, actualización de estados de teclas presionadas y comunicación de esas acciones al juego.
 #include "input.h"
 #include <SDL.h>
-#include "../Game/game.cpp"
+#include "../globals.h"
 
 
 int posXOriginal;
@@ -84,50 +84,32 @@ void processInput()
 	}
 }
 
-void movement()
+void movement(float deltaTime)
 {
-	if (player.up == true)
-	{
-		player.posY -= player.speed / 100.0;
-	}
+	if (player.up)
+		player.posY -= player.speed * deltaTime;
 	if (player.down)
-	{
-		player.posY += player.speed / 100.0;
-	}
+		player.posY += player.speed * deltaTime;
 
-	if (player.special == true) {
-		posXOriginal = player.posX; // Guardar la posición original antes de moverse
-		player.posX += player.speed / 10.0;
+	if (player.special) {
+		posXOriginal = player.posX;
+		player.posX += player.speed * deltaTime;
 		volver = true;
 	}
-	//Agregar un clock para completar el volver. Luego implementarlo para la ia tambien
-	if (volver == true) {
-		// Volver suavemente hacia la posición original
-		if (player.posX != posXOriginal) {
-			player.posX -= player.speed / 2.0;
-			player.posX = posXOriginal;
+
+	if (volver) {
+		if (player.posX > posXOriginal) {
+			player.posX -= player.speed * deltaTime;
+			if (player.posX < posXOriginal)
+				player.posX = posXOriginal;
+		}
+		else {
 			volver = false;
 		}
-		else
-		{
-			volver = false; // Ya está en su lugar
-		}
 	}
 
-	if (ia.up == true)
-	{
-		ia.posY -= ia.speed / 100.0;
-	}
-	if (ia.down)
-	{
-		ia.posY += ia.speed / 100.0;
-	}
-
-	ball.posX += ball.velocidadX / 100;
-	ball.posY += ball.velocidadY / 100;
+	// La IA mueve solo en updateGame (donde sigue la pelota), no acá
 }
-
-
 
 //variables locales para movimiento
 

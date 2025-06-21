@@ -7,6 +7,6 @@
 void onKeyUp(int keyCode);
 void onKeyDown(int keyCode);
 void processInput();
-void movement();
+void movement(float deltaTime);
 
 #endif // INPUT_H

@@ -234,6 +234,9 @@ xcopy "$(ProjectDir)..\assets" "$(OutDir)\assets" /Y  /E /C /I</Command>
     <ClInclude Include="..\src\Render\render.h" />
     <ClInclude Include="..\src\SDL_Project.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\src\Globals.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
