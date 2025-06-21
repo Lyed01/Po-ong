@@ -20,19 +20,23 @@ Player player;
 Player ia;
 Ball ball;
 
-void checkCollisions(int ventanaAlto) {
+void checkCollisions(int ventanaAlto, int ventanaAncho) {
     if (ball.posY <= 0 || ball.posY + ball.height >= ventanaAlto) {
         ball.velocidadY *= -1;
     }
+    if (ball.posX <= 0 || ball.posX + ball.width >= ventanaAncho) {
+        ball.velocidadX *= -1;
+    }
+   
 }
 
 void ball_init(float x, float y) {
     ball.posX = x;
     ball.posY = y;
-    ball.velocidadX = 300;
-    ball.velocidadY = 300;
-    ball.width = 30;
-    ball.height = 30;
+    ball.velocidadX = 1000;
+    ball.velocidadY = 1000;
+    ball.width = 10;
+    ball.height = 10;
 }
 
 void player_init(float x, float y) {
@@ -40,7 +44,7 @@ void player_init(float x, float y) {
     player.posY = y;
     player.width = 10;
     player.height = 60;
-    player.speed = 300;
+    player.speed = 1000;
 }
 
 void ia_init(float x, float y) {
@@ -48,7 +52,7 @@ void ia_init(float x, float y) {
     ia.posY = y;
     ia.width = 10;
     ia.height = 60;
-    ia.speed = 300;
+    ia.speed = 1000;
 }
 
 void render() {
@@ -64,9 +68,15 @@ void render() {
 
 static void updateGame(float deltaTime) {
     movement(deltaTime);
-    ball.posX += ball.velocidadX * deltaTime;
-    ball.posY += ball.velocidadY * deltaTime;
-    checkCollisions(720);
+  
+    checkCollisions(720, 1280);
+
+    if (ball.posY < ia.posY) {
+        ia.posY -= ia.speed / 100.0f;
+    }
+    if (ball.posY > ia.posY + ia.height) {
+        ia.posY += ia.speed / 100.0f;
+    }
 
 
     // Colisión con paleta jugador
@@ -89,7 +99,7 @@ static void updateGame(float deltaTime) {
 static void initGame() {
     SDL_Init(SDL_INIT_EVERYTHING);
 
-    window = SDL_CreateWindow("Mi ventana", 100, 100, 1280, 720, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("Pong", 100, 100, 1280, 720, SDL_WINDOW_SHOWN);
     renderer = SDL_CreateRenderer(window, -1, 0);
 
     imagenJugador = cargarLaImagen("assets/img/player.png", renderer);

@@ -1,12 +1,9 @@
-﻿  game.cpp
-C:\Users\Casto\source\repos\Po-ong\src\Game\game.cpp(30,17): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\Casto\source\repos\Po-ong\src\Game\game.cpp(31,17): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\Casto\source\repos\Po-ong\src\Game\game.cpp(39,19): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\Casto\source\repos\Po-ong\src\Game\game.cpp(40,19): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\Casto\source\repos\Po-ong\src\Game\game.cpp(47,15): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\Casto\source\repos\Po-ong\src\Game\game.cpp(48,15): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\Casto\source\repos\Po-ong\src\Game\game.cpp(67,34): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\Casto\source\repos\Po-ong\src\Game\game.cpp(68,34): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
+﻿  input.cpp
+C:\Users\Casto\source\repos\Po-ong\src\Input\input.cpp(90,31): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\Casto\source\repos\Po-ong\src\Input\input.cpp(92,31): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\Casto\source\repos\Po-ong\src\Input\input.cpp(96,31): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\Casto\source\repos\Po-ong\src\Input\input.cpp(111,30): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\Casto\source\repos\Po-ong\src\Input\input.cpp(112,31): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
   SDL_Project.vcxproj -> C:\Users\Casto\Source\Repos\Po-ong\project\x64\Debug\SDL_Project.exe
   C:\Users\Casto\source\repos\Po-ong\project\..\libs\SDL2_image\lib\x64\libjpeg-9.dll
   C:\Users\Casto\source\repos\Po-ong\project\..\libs\SDL2_image\lib\x64\libpng16-16.dll

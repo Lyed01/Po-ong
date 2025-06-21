@@ -2,8 +2,8 @@
 #include "input.h"
 #include <SDL.h>
 #include "../globals.h"
-
-
+#include <iostream>
+using namespace std;
 int posXOriginal;
 bool volver = false;
 
@@ -95,8 +95,21 @@ void movement(float deltaTime)
 		posXOriginal = player.posX;
 		player.posX += player.speed * deltaTime;
 		volver = true;
-	}
+		for (int i = 1; i <= 10; i++) {
 
+			if (volver) {
+				if (player.posX > posXOriginal) {
+					player.posX -= player.speed * deltaTime;
+					if (player.posX < posXOriginal)
+						player.posX = posXOriginal;
+				}
+				else {
+					volver = false;
+				}
+			}
+		}
+	}
+	
 	if (volver) {
 		if (player.posX > posXOriginal) {
 			player.posX -= player.speed * deltaTime;
@@ -107,9 +120,11 @@ void movement(float deltaTime)
 			volver = false;
 		}
 	}
-
+	
+	ball.posX += ball.velocidadX* deltaTime;
+	ball.posY += ball.velocidadY * deltaTime;
+	
 	// La IA mueve solo en updateGame (donde sigue la pelota), no acá
 }
 
-//variables locales para movimiento
-
+//variables l\ocales para movimiento
