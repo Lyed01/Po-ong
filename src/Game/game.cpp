@@ -12,6 +12,8 @@ using namespace std;
 // Definiciones reales
 SDL_Renderer* renderer = nullptr;
 SDL_Window* window = nullptr;
+SDL_Texture* imagenFondoJuego = nullptr;
+SDL_Texture* imagenFondoMenu = nullptr;
 SDL_Texture* imagenJugador = nullptr;
 SDL_Texture* imagenIA = nullptr;
 SDL_Texture* imagenPelota = nullptr;
@@ -56,9 +58,10 @@ void ia_init(float x, float y) {
 }
 
 void render() {
-    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+    SDL_SetRenderDrawColor(renderer, 120, 140, 220, 200);
     SDL_RenderClear(renderer);
-
+   
+    mostrarLaImagen(imagenFondoJuego, NULL, NULL, renderer);
     mostrarLaImagen(imagenIA, ia.posX, ia.posY, renderer);
     mostrarLaImagen(imagenJugador, player.posX, player.posY, renderer);
     mostrarLaImagen(imagenPelota, ball.posX, ball.posY, renderer);
@@ -99,9 +102,10 @@ static void updateGame(float deltaTime) {
 static void initGame() {
     SDL_Init(SDL_INIT_EVERYTHING);
 
-    window = SDL_CreateWindow("Pong", 100, 100, 1280, 720, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("Pong", 50, 50, 1280, 720, SDL_WINDOW_SHOWN);
     renderer = SDL_CreateRenderer(window, -1, 0);
 
+    imagenFondoJuego = cargarLaImagen("assets/img/gameplay.png", renderer);
     imagenJugador = cargarLaImagen("assets/img/player.png", renderer);
     imagenIA = cargarLaImagen("assets/img/enemy.png", renderer);
     imagenPelota = cargarLaImagen("assets/img/ball.png", renderer);
@@ -128,6 +132,8 @@ void runGame() {
     SDL_DestroyTexture(imagenJugador);
     SDL_DestroyTexture(imagenIA);
     SDL_DestroyTexture(imagenPelota);
+    SDL_DestroyTexture(imagenFondoJuego);
+    SDL_DestroyTexture(imagenFondoMenu);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();

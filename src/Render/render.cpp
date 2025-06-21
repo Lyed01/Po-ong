@@ -14,7 +14,7 @@ void mostrarLaImagen(SDL_Texture* texture, int x, int y, SDL_Renderer* renderer)
 
 	dest.x = x;
 	dest.y = y;
-	dest.w = 10;  
+	dest.w = 10; 
 	dest.h = 10;
 
 	//dimensiones
