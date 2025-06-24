@@ -6,8 +6,8 @@
 
 // Estructura de la ia
 typedef struct Ia {
-    int posY;
-    int posX;
+    float posY;
+    float posX;
     int width;
     int height;
     float speed;

@@ -4,8 +4,11 @@
 #include "../globals.h"
 #include <iostream>
 using namespace std;
-int posXOriginal;
-bool volver = false;
+bool enDash = false;
+bool volviendoDash = false;
+float posXOriginal = 0.0f;
+float dashCooldown = 7.0f;      // Cooldown en segundos
+float dashTimer = 0.0f;
 
 void onKeyUp(int keyCode)
 {
@@ -64,6 +67,8 @@ void onKeyDown(int keyCode)
 	}
 }
 
+
+
 void processInput()
 {
 	SDL_Event event;
@@ -86,45 +91,52 @@ void processInput()
 
 void movement(float deltaTime)
 {
-	if (player.up)
-		player.posY -= player.speed * deltaTime;
-	if (player.down)
-		player.posY += player.speed * deltaTime;
+	// Reducir timer cooldown si está activo
+	if (dashTimer > 0.0f) {
+		dashTimer -= deltaTime;
+		if (dashTimer < 0.0f)
+			dashTimer = 0.0f;
+	}
 
-	if (player.special) {
+	// Solo permite dash si cooldown terminó
+	if (player.special && !enDash && !volviendoDash && dashTimer == 0.0f) {
+		enDash = true;
 		posXOriginal = player.posX;
-		player.posX += player.speed * deltaTime;
-		volver = true;
-		for (int i = 1; i <= 10; i++) {
+		dashTimer = dashCooldown;   // Reiniciar cooldown
+	}
 
-			if (volver) {
-				if (player.posX > posXOriginal) {
-					player.posX -= player.speed * deltaTime;
-					if (player.posX < posXOriginal)
-						player.posX = posXOriginal;
-				}
-				else {
-					volver = false;
-				}
-			}
+	// Mover solo si no está en dash o volviendo
+	if (!enDash && !volviendoDash) {
+		if (player.up)
+			player.posY -= player.speed * deltaTime;
+		if (player.down)
+			player.posY += player.speed * deltaTime;
+	}
+
+	// Limitar posición vertical
+	if (player.posY < 0) player.posY = 0;
+	if (player.posY + player.height > 720) player.posY = 720 - player.height;
+
+	if (enDash) {
+		player.posX += player.speed * 1.5 * deltaTime;  // Avanza rápido
+		if (player.posX >= posXOriginal + 150) {
+			enDash = false;
+			volviendoDash = true;
 		}
 	}
-	
-	if (volver) {
-		if (player.posX > posXOriginal) {
-			player.posX -= player.speed * deltaTime;
-			if (player.posX < posXOriginal)
-				player.posX = posXOriginal;
-		}
-		else {
-			volver = false;
+	else if (volviendoDash) {
+		player.posX -= player.speed * 0.5 * deltaTime;  // Vuelve rápido
+		if (player.posX <= posXOriginal) {
+			player.posX = posXOriginal;
+			volviendoDash = false;
 		}
 	}
-	
-	ball.posX += ball.velocidadX* deltaTime;
+
+	// Movimiento pelota
+	ball.posX += ball.velocidadX * deltaTime;
 	ball.posY += ball.velocidadY * deltaTime;
-	
-	// La IA mueve solo en updateGame (donde sigue la pelota), no acá
 }
 
-//variables l\ocales para movimiento
+
+
+

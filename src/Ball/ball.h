@@ -1,12 +1,11 @@
 #ifndef BALL_H
 #define BALL_H
 
-typedef struct Ball
-{
+typedef struct Ball {
     int height;
     int width;
-    int posX;
-    int posY;
+    float posX;
+    float posY;
     float velocidadX;
     float velocidadY;
 } Ball;

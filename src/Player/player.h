@@ -5,16 +5,16 @@
 #pragma once     
 
 // Estructura del jugador
-typedef struct Player {
-    int posY;
-    int posX;
-    int width;
-    int height;
-    float speed;
-    bool up = false;
-    bool down = false;
-    bool special = false;
-    
 
-} Player;
+ typedef struct Player {
+        int width;
+        int height;
+        float posX;
+        float posY;
+        float speed;
+        bool up = false;
+        bool down = false;
+        bool special = false;
+    } Player;
+
 

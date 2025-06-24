@@ -12,5 +12,6 @@ using namespace std;
 SDL_Texture* cargarLaImagen(string filename, SDL_Renderer* renderer);
 
 // Muestra la textura en las coordenadas (x, y)
-void mostrarLaImagen(SDL_Texture* texture, int x, int y, SDL_Renderer* renderer);
+void mostrarLaImagen(SDL_Texture* texture, int x, int y, int w, int h, SDL_Renderer* renderer);
+
 
