@@ -79,7 +79,7 @@ void ia_init(float x, float y) {
     ia.posY = y;
     ia.width = 50;
     ia.height = 100;
-    ia.speed = 1000;
+    ia.speed = 800;
 }//inicializar objeto y caracteristicas
 
 void resetPositionsAndPause(int ventanaAncho, int ventanaAlto, bool puntoJugador) {
@@ -102,16 +102,23 @@ void resetPositionsAndPause(int ventanaAncho, int ventanaAlto, bool puntoJugador
     timerPausa = duracionPausa;
 }
 void updateIA(float deltaTime, int canchaMitadX) {
-    // Actualizar timer cooldown
+    // === Control del cambio de modo (full tracking o medio campo) ===
+    iaModeTimer += deltaTime;
+    if (iaModeTimer >= 7.0f) {
+        iaModoFullTracking = (rand() % 2 == 0);
+        iaModeTimer = 0.0f;
+    }
+
+    // === Control de cooldown de dash ===
     if (iaDashTimer > 0.0f) {
         iaDashTimer -= deltaTime;
         if (iaDashTimer < 0.0f)
             iaDashTimer = 0.0f;
     }
 
-    // Determinar si IA debe hacer dash
+    // === Ver si puede iniciar dash ===
     bool puedeDash = (iaDashTimer == 0.0f) && !iaEnDash && !iaVolviendoDash;
-    bool pelotaCercaX = (ball.posX > ia.posX - 100) && (ball.posX < ia.posX + ia.width + 50); // cerca en X
+    bool pelotaCercaX = (ball.posX > ia.posX - 100) && (ball.posX < ia.posX + ia.width + 50);
     bool pelotaEnRangoY = (ball.posY + ball.height > ia.posY) && (ball.posY < ia.posY + ia.height);
 
     if (puedeDash && pelotaCercaX && pelotaEnRangoY) {
@@ -120,33 +127,57 @@ void updateIA(float deltaTime, int canchaMitadX) {
         iaDashTimer = iaDashCooldown;
     }
 
-    // Dash y retorno IA
+    // === Movimiento horizontal (dash) ===
     if (iaEnDash) {
-        ia.posX -= ia.speed * 1.5 * deltaTime;  // Avanza hacia la izquierda (hacia la pelota)
+        ia.posX -= ia.speed * 1.5f * deltaTime;
         if (ia.posX <= iaPosXOriginal - 100) {
             iaEnDash = false;
             iaVolviendoDash = true;
         }
     }
     else if (iaVolviendoDash) {
-        ia.posX += ia.speed * 0.5 * deltaTime;  // Vuelve a la posición original
+        ia.posX += ia.speed * 0.5f * deltaTime;
         if (ia.posX >= iaPosXOriginal) {
             ia.posX = iaPosXOriginal;
             iaVolviendoDash = false;
         }
     }
-    else {
-        // Movimiento vertical normal IA (seguir la pelota o lo que quieras)
-        if (ball.posY + ball.height / 2 < ia.posY + ia.height / 2)
-            ia.posY -= ia.speed * deltaTime;
-        else if (ball.posY + ball.height / 2 > ia.posY + ia.height / 2)
-            ia.posY += ia.speed * deltaTime;
 
-        // Limitar posición vertical
-        if (ia.posY < 0) ia.posY = 0;
-        if (ia.posY + ia.height > 720) ia.posY = 720 - ia.height;
+    // === Movimiento vertical (tracking) ===
+    bool seguirPelota = false;
+    if (iaModoFullTracking) {
+        seguirPelota = true;
     }
+    else {
+        if (ball.posX >= canchaMitadX) {
+            seguirPelota = true;
+        }
+    }
+
+    if (seguirPelota) {
+        float iaCentroY = ia.posY + ia.height / 2.0f;
+        float ballCentroY = ball.posY + ball.height / 2.0f;
+        const float deadZone = 10.0f;
+
+        if (ballCentroY < iaCentroY - deadZone) {
+            ia.posY -= ia.speed * deltaTime;
+        }
+        else if (ballCentroY > iaCentroY + deadZone) {
+            ia.posY += ia.speed * deltaTime;
+        }
+    }
+
+    // === Oscilación leve ===
+    static float oscilacionTimer = 0.0f;
+    oscilacionTimer += deltaTime;
+    float oscilacion = sin(oscilacionTimer * 2.0f) * 9.0f;
+    ia.posY += oscilacion * deltaTime;
+
+    // === Limitar dentro de la pantalla ===
+    if (ia.posY < 0) ia.posY = 0;
+    if (ia.posY + ia.height > 720) ia.posY = 720 - ia.height;
 }
+
 
 
 void resetGame(int ventanaAncho, int ventanaAlto, bool puntoJugador) {
