@@ -451,15 +451,12 @@ static void updateGame(float deltaTime) {
      
 
     }
-     else if (pantallaDeResultado) {
+    else if (pantallaDeMenu) {
          puntosJugador, puntosIA = 0;
-     }
-     else if (pantallaDeMenu) {
          ball.habilidad = false;
          contador = 30;
          resetPositionsAndPause(1280, 720, true);
-         
-     };
+    };
     
 }
 
