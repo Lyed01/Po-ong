@@ -163,7 +163,7 @@ xcopy "$(ProjectDir)..\assets" "$(OutDir)\assets" /Y  /E /C /I</Command>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -218,17 +218,13 @@ xcopy "$(ProjectDir)..\assets" "$(OutDir)\assets" /Y  /E /C /I</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="../src/SDL_Project.cpp" />
-    <ClCompile Include="..\src\Ball\ball.cpp" />
     <ClCompile Include="..\src\Game\game.cpp" />
-    <ClCompile Include="..\src\IA\ia.cpp" />
     <ClCompile Include="..\src\Input\input.cpp" />
-    <ClCompile Include="..\src\Player\player.cpp" />
     <ClCompile Include="..\src\Render\render.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Ball\ball.h" />
     <ClInclude Include="..\src\Game\game.h" />
-    <ClInclude Include="..\src\IA\ia.h" />
     <ClInclude Include="..\src\Input\input.h" />
     <ClInclude Include="..\src\Player\player.h" />
     <ClInclude Include="..\src\Render\render.h" />
