@@ -6,11 +6,11 @@
 #include "Player/player.h"
 #include "Ball/ball.h"
 
-// Declaraciones (extern => existe en alg˙n .cpp)
+// Declaraciones (extern => existe en alg√∫n .cpp)
 extern SDL_Renderer* renderer;
 extern SDL_Window* window;
-extern SDL_Texture* imagenFondoJuego;
 extern SDL_Texture* imagenFondoMenu;
+extern SDL_Texture* imagenFondoJuego;
 extern SDL_Texture* imagenJugador;
 extern SDL_Texture* imagenIA;
 extern SDL_Texture* imagenPelota;

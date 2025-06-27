@@ -15,8 +15,8 @@ using namespace std;
 
 SDL_Renderer* renderer = nullptr;
 SDL_Window* window = nullptr;
-SDL_Texture* imagenFondoJuego = nullptr;
 SDL_Texture* imagenFondoMenu = nullptr;
+SDL_Texture* imagenFondoJuego = nullptr;
 SDL_Texture* imagenVictoria = nullptr;
 SDL_Texture* imagenDerrota = nullptr;
 SDL_Texture* imagenEmpate = nullptr;
@@ -41,23 +41,32 @@ Player player;
 Player ia;
 Ball ball;
 
-
 //VARIABLES DE JUEGO
 bool isGameRunning = true;
 int contador;
+int puntosJugador = 0;
+int puntosIA = 0;
+int puntosJugador = 0;
+int puntosIA = 0;
 bool pantallaDeMenu = true;
 bool pantallaDeJuego = false;
 bool pantallaDeResultado = false;
+bool enPausa = false;
+float timerPausa = 0.0f;
+float tiempoParaActualizar = 1;
 int puntosJugador = 0;
 int puntosIA = 0;
 bool resultado = false;
 bool esJugador = false;
-bool enPausa = false;
-float timerPausa = 0.0f;
-float tiempoParaActualizar = 1;
-enum Dificultad { FACIL, DIFICIL };
-Dificultad dificultadSeleccionada = FACIL;
-const float duracionPausa = 0.5f;
+
+//VARIABLES PELOTA
+const float duracionPausa = 0.5f; // segundos de pausa tras un punto
+
+
+//VARIABLES PELOTA
+const float duracionPausa = 0.5f; // segundos de pausa tras un punto
+
+const float duracionPausa = 0.5f; // segundos de pausa tras un punto
 
 //VARIABLES IA
 bool iaModoFullTracking = false;
@@ -447,23 +456,26 @@ static void updateGame(float deltaTime) {
                 enPausa = false;
             }
             return; // Salimos sin actualizar movimientos ni colisiones
-        }
-
-        movement(deltaTime);
-        checkPoints(1280, 720);
-        updateIA(deltaTime, 850);
-        checkPaddleCollision(player, ball, true, deltaTime);
-        checkPaddleCollision(ia, ball, false, deltaTime);
-     
-
-    }
      else if (pantallaDeMenu) {
+         puntosJugador = 0, puntosIA = 0;
+         ball.init(640, 360);
+        checkPoints(1280, 720);
+     else if (pantallaDeResultado) {
+         puntosJugador, puntosIA = 0;
+     }
+     else if (pantallaDeMenu) {
+         ball.habilidad = false;
+     
+     else if (pantallaDeResultado) {
+         puntosJugador, puntosIA = 0;
+     }
+     else if (pantallaDeMenu) {
+         ball.habilidad = false;
          puntosJugador = 0, puntosIA = 0;
          ball.init(640, 360);
          contador = 30;
          resetPositionsAndPause(1280, 720, true);
-         
-     };
+    };
     
 }
 
