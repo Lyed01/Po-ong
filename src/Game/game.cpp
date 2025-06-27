@@ -15,46 +15,45 @@ using namespace std;
 
 SDL_Renderer* renderer = nullptr;
 SDL_Window* window = nullptr;
-SDL_Texture* imagenFondoJuego = nullptr;
 SDL_Texture* imagenFondoMenu = nullptr;
+SDL_Texture* imagenFondoJuego = nullptr;
 SDL_Texture* imagenVictoria = nullptr;
 SDL_Texture* imagenDerrota = nullptr;
 SDL_Texture* imagenEmpate = nullptr;
 SDL_Texture* imagenJugador = nullptr;
 SDL_Texture* imagenIA = nullptr;
 SDL_Texture* imagenPelota = nullptr;
-Mix_Music* musicaFondo = nullptr;
-const int NUM_SONIDOAGUA = 12;
-Mix_Chunk* sonidosAgua[NUM_SONIDOAGUA];
-Mix_Chunk* sonidoPunto = nullptr;
 SDL_Texture* imagenPelotaHabilidad = nullptr;
 TTF_Font* fuente;
 TTF_Font* fuenteGrande;
 TTF_Font* fuenteMediana;
 SDL_Surface* textoSurface;
 SDL_Texture* textoTexture;
+Mix_Music* musicaFondo = nullptr;
+const int NUM_SONIDOAGUA = 12;
+Mix_Chunk* sonidosAgua[NUM_SONIDOAGUA];
+Mix_Chunk* sonidoPunto = nullptr;
+
 Player player;
 Player ia;
 Ball ball;
 
-
 //VARIABLES DE JUEGO
-bool enPausa = false;
+
 bool isGameRunning = true;
-float timerPausa = 0.0f;
-int puntosJugador = 0;
-int puntosIA = 0;
+int contador; 
 bool pantallaDeMenu = true;
 bool pantallaDeJuego = false;
 bool pantallaDeResultado = false;
-int contador;              // Duración inicial del contador en segundos
-float tiempoParaActualizar = 1; // 1 segundo para decrementar
+int puntosJugador = 0;
+int puntosIA = 0;
 bool resultado = false;
 bool esJugador = false;
+bool enPausa = false;
+float timerPausa = 0.0f;
+float tiempoParaActualizar = 1; 
 enum Dificultad { FACIL, DIFICIL };
 Dificultad dificultadSeleccionada = FACIL;
-
-
 
 //VARIABLES PELOTA
 const float duracionPausa = 0.5f; // segundos de pausa tras un punto
