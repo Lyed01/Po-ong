@@ -11,14 +11,6 @@ int SDL_main(int argc, char* argv[])
 }
 
 
-// input.c identificadores no declarados... player, ball e ia, hay que ver cómo resolver eso
-
-/* Posibles archivos redundantes:
-*	-Player.c 
-*	-ball.c
-*/
-
-
 
 
 

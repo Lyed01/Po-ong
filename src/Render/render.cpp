@@ -2,7 +2,7 @@
 #include "../Render/render.h"
 SDL_Texture* cargarLaImagen(string filename, SDL_Renderer* renderer)
 {
-	SDL_Texture* texture; //variable temporal
+	SDL_Texture* texture;
 	texture = IMG_LoadTexture(renderer, filename.c_str());
 	return texture;
 }

@@ -23,41 +23,41 @@ SDL_Texture* imagenEmpate = nullptr;
 SDL_Texture* imagenJugador = nullptr;
 SDL_Texture* imagenIA = nullptr;
 SDL_Texture* imagenPelota = nullptr;
-Mix_Music* musicaFondo = nullptr;
-const int NUM_SONIDOAGUA = 12;
-Mix_Chunk* sonidosAgua[NUM_SONIDOAGUA];
-Mix_Chunk* sonidoPunto = nullptr;
 SDL_Texture* imagenPelotaHabilidad = nullptr;
+
+
 TTF_Font* fuente;
 TTF_Font* fuenteGrande;
 TTF_Font* fuenteMediana;
 SDL_Surface* textoSurface;
 SDL_Texture* textoTexture;
+
+Mix_Music* musicaFondo = nullptr;
+const int NUM_SONIDOAGUA = 12;
+Mix_Chunk* sonidosAgua[NUM_SONIDOAGUA];
+Mix_Chunk* sonidoPunto = nullptr;
+
 Player player;
 Player ia;
 Ball ball;
 
 
 //VARIABLES DE JUEGO
-bool enPausa = false;
 bool isGameRunning = true;
-float timerPausa = 0.0f;
-int puntosJugador = 0;
-int puntosIA = 0;
+int contador;
 bool pantallaDeMenu = true;
 bool pantallaDeJuego = false;
 bool pantallaDeResultado = false;
-int contador;              // Duración inicial del contador en segundos
-float tiempoParaActualizar = 1; // 1 segundo para decrementar
+int puntosJugador = 0;
+int puntosIA = 0;
 bool resultado = false;
 bool esJugador = false;
+bool enPausa = false;
+float timerPausa = 0.0f;
+float tiempoParaActualizar = 1;
 enum Dificultad { FACIL, DIFICIL };
 Dificultad dificultadSeleccionada = FACIL;
-
-
-
-//VARIABLES PELOTA
-const float duracionPausa = 0.5f; // segundos de pausa tras un punto
+const float duracionPausa = 0.5f;
 
 //VARIABLES IA
 bool iaModoFullTracking = false;
@@ -68,88 +68,34 @@ float iaPosXOriginal = 0.0f;
 float iaDashCooldown = 7.0f;
 float iaDashTimer = 0.0f;
 
-
 void ia_init(float x, float y) {
     ia.posX = x;
     ia.posY = y;
     ia.width = 100;
     ia.height = 200;
     ia.speed = 500;
-}//inicializar objeto y caracteristicas
-
-bool checkPaddleCollision(Player& paddle, Ball& ball, bool isPlayer, float deltatime) {
-    if (ball.posX <= paddle.posX + paddle.width &&
-        ball.posX + ball.width >= paddle.posX &&
-        ball.posY + ball.height >= paddle.posY &&
-        ball.posY <= paddle.posY + paddle.height) {
-
-        int indice = rand() % NUM_SONIDOAGUA;
-        if (sonidosAgua[indice]) {
-            Mix_PlayChannel(-1, sonidosAgua[indice], 0);
-        }
-
-        const float VELOCIDAD_INCREMENTO = 1.0008f;
-        ball.velocidadX = -ball.velocidadX * VELOCIDAD_INCREMENTO;
-
-        if (isPlayer) {
-            ball.posX = paddle.posX + paddle.width;
-        }
-        else {
-            ball.posX = paddle.posX - ball.width;
-        }
-
-        float paletaCentroY = paddle.posY + paddle.height / 2.0f;
-        float ballCentroY = ball.posY + ball.height / 2.0f;
-        float diffY = ballCentroY - paletaCentroY;
-        ball.velocidadY = diffY * 7;
-
-        if (paddle.special) {
-            ball.aplicarHabilidad(deltatime);
-            paddle.special = false; // resetear el estado de habilidad
-        }
-
-        return true;
-    }
-    return false;
 }
-void resetPositionsAndPause(int ventanaAncho, int ventanaAlto, bool puntoJugador) {
-    // Reset pelota
-    ball.posX = ventanaAncho / 2.0f;
-    ball.posY = ventanaAlto / 2.0f;
 
-    float velocidadInicialX = 400.0f;
-    float velocidadInicialY = 200.0;
 
-    ball.velocidadX = (puntoJugador) ? velocidadInicialX : -velocidadInicialX;
-    ball.velocidadY = (rand() % 2 == 0) ? velocidadInicialY : -velocidadInicialY;
-
-    // Reset jugadores (centrados verticalmente)
-    player.posY = (ventanaAlto - player.height) / 2.0f;
-    ia.posY = (ventanaAlto - ia.height) / 2.0f;
-
-    // Entrar en pausa
-    enPausa = true;
-    timerPausa = duracionPausa;
-}
 void updateIA(float deltaTime, int canchaMitadX) {
-    // === Control del cambio de modo (full tracking o medio campo) ===
+    // Control del cambio de modo 
     iaModeTimer += deltaTime;
 
-    if (dificultadSeleccionada == 1){
+    if (dificultadSeleccionada == 1) {
         ia.speed = 700;
-        if (iaModeTimer >= 7.0f ) {
-            iaModoFullTracking = true; // (rand() % 2 == 0);
+        if (iaModeTimer >= 7.0f) {
+            iaModoFullTracking =  (rand() % 2 == 0);
             iaModeTimer = 0.0f;
         }
     }
-    // === Control de cooldown de dash ===
+    // cooldown de dash 
     if (iaDashTimer > 0.0f) {
         iaDashTimer -= deltaTime;
         if (iaDashTimer < 0.0f)
             iaDashTimer = 0.0f;
     }
 
-    // === Ver si puede iniciar dash ===
+    // Ver si puede dash 
     bool puedeDash = (iaDashTimer == 0.0f) && !iaEnDash && !iaVolviendoDash;
     bool pelotaCercaX = (ball.posX > ia.posX - 100) && (ball.posX < ia.posX + ia.width + 50);
     bool pelotaEnRangoY = (ball.posY + ball.height > ia.posY) && (ball.posY < ia.posY + ia.height);
@@ -160,7 +106,6 @@ void updateIA(float deltaTime, int canchaMitadX) {
         iaDashTimer = iaDashCooldown;
     }
 
-    // === Movimiento horizontal (dash) ===
     if (iaEnDash) {
         ia.special = true;
         ia.posX -= ia.speed * 1.5f * deltaTime;
@@ -176,8 +121,8 @@ void updateIA(float deltaTime, int canchaMitadX) {
             iaVolviendoDash = false;
         }
     }
-    
-    // === Movimiento vertical (tracking) ===
+
+    // tracking
     bool seguirPelota = false;
     if (iaModoFullTracking) {
         seguirPelota = true;
@@ -201,25 +146,85 @@ void updateIA(float deltaTime, int canchaMitadX) {
         }
     }
 
-    // === Oscilación leve ===
+    // Oscilacion 
     static float oscilacionTimer = 0.0f;
     oscilacionTimer += deltaTime;
-    float oscilacion = sin(oscilacionTimer * 2.0f) * 9.0f;
+    float oscilacion = sin(oscilacionTimer * 2.0f) * 100.0f;
     ia.posY += oscilacion * deltaTime;
 
-    // === Limitar dentro de la pantalla ===
+    // Limitar dentro de la pantalla 
     if (ia.posY < 0) ia.posY = 0;
     if (ia.posY + ia.height > 720) ia.posY = 720 - ia.height;
+}
+
+bool checkPaddleCollision(Player& paddle, Ball& ball, bool isPlayer, float deltatime) {
+    if (ball.posX <= paddle.posX + paddle.width &&
+        ball.posX + ball.width >= paddle.posX &&
+        ball.posY + ball.height >= paddle.posY &&
+        ball.posY <= paddle.posY + paddle.height) {
+
+        int indice = rand() % NUM_SONIDOAGUA;
+        if (sonidosAgua[indice]) {
+            Mix_PlayChannel(-1, sonidosAgua[indice], 0);
+        }
+
+        const float VELOCIDAD_INCREMENTO = 1.01f;
+        ball.velocidadX = -ball.velocidadX * VELOCIDAD_INCREMENTO;
+
+        if (isPlayer) {
+            ball.posX = paddle.posX + paddle.width;
+        }
+        else {
+            ball.posX = paddle.posX - ball.width;
+        }
+
+        float paletaCentroY = paddle.posY + paddle.height / 2.0f;
+        float ballCentroY = ball.posY + ball.height / 2.0f;
+        float diffY = ballCentroY - paletaCentroY;
+        ball.velocidadY = diffY * 7;
+
+        if (paddle.enDash) {
+            ball.aplicarHabilidad(deltatime);
+           
+        }
+
+        return true;
+    }
+    return false;
+}
+
+void resetPositionsAndPause(int ventanaAncho, int ventanaAlto, bool puntoJugador) {
+    // Reset pelota
+    ball.posX = ventanaAncho / 2.0f;
+    ball.posY = ventanaAlto / 2.0f;
+
+    float velocidadInicialX = 400.0f;
+    float velocidadInicialY = 200.0;
+
+    ball.velocidadX = (puntoJugador) ? velocidadInicialX : -velocidadInicialX;
+    ball.velocidadY = (rand() % 2 == 0) ? velocidadInicialY : -velocidadInicialY;
+
+    // Reset jugadores (centrados verticalmente)
+    player.posY = (ventanaAlto - player.height) / 2.0f;
+    ia.posY = (ventanaAlto - ia.height) / 2.0f;
+
+    // Entrar en pausa
+    enPausa = true;
+    timerPausa = duracionPausa;
 }
 
 void checkPoints(int ventanaAncho, int ventanaAlto) {
     if (ball.posX + ball.width < 0) {
         puntosIA++;
+        Mix_PlayChannel(-1, sonidoPunto, 0);
         resetPositionsAndPause(ventanaAncho, ventanaAlto, false);
+        cout << puntosIA;
     }
     if (ball.posX > ventanaAncho) {
         puntosJugador++;
+        Mix_PlayChannel(-1, sonidoPunto, 0);
         resetPositionsAndPause(ventanaAncho, ventanaAlto, true);
+
     }
 }
 
@@ -361,6 +366,7 @@ void render() {
     };
     SDL_RenderPresent(renderer);
 }
+
 static void initGame() {
 
     SDL_Init(SDL_INIT_EVERYTHING);
@@ -402,7 +408,7 @@ static void initGame() {
             cerr << "Error cargando " << ruta << ": " << Mix_GetError() << endl;
         }
     }
-    sonidoPunto = Mix_LoadWAV("assets/audio/SONIDOAGUA12.wav");
+    sonidoPunto = Mix_LoadWAV("assets/audio/short-quick-dive.wav");
 
     if (musicaFondo) Mix_PlayMusic(musicaFondo, -1); // -1 = loop infinito
 
@@ -421,19 +427,20 @@ static void initGame() {
 }
 
 static void updateGame(float deltaTime) {  
-
      if (pantallaDeJuego) {
-        if (contador > 0) {
-            tiempoParaActualizar -= deltaTime;
-            if (tiempoParaActualizar <= 0.0f) {
-                contador--;
-                tiempoParaActualizar = 1.0f;
-            }
-        }
-        if (contador == 0) {
-            pantallaDeJuego = false;
-            pantallaDeResultado = true;
-        }
+
+         if (contador > 0) {
+             tiempoParaActualizar -= deltaTime;
+             if (tiempoParaActualizar <= 0.0f) {
+                 contador--;
+                 tiempoParaActualizar = 1.0f;
+             }
+         }
+         if (contador == 0) {
+             pantallaDeJuego = false;
+             pantallaDeResultado = true;
+         }
+
         if (enPausa) {
             timerPausa -= deltaTime;
             if (timerPausa <= 0.0f) {
@@ -442,21 +449,17 @@ static void updateGame(float deltaTime) {
             return; // Salimos sin actualizar movimientos ni colisiones
         }
 
-        ball.ballTimerHability(deltaTime);
         movement(deltaTime);
         checkPoints(1280, 720);
-        ball.limitarPantalla(720);
-        updateIA(deltaTime, 840);
+        updateIA(deltaTime, 850);
         checkPaddleCollision(player, ball, true, deltaTime);
         checkPaddleCollision(ia, ball, false, deltaTime);
      
 
     }
-     else if (pantallaDeResultado) {
-         puntosJugador, puntosIA = 0;
-     }
      else if (pantallaDeMenu) {
-         ball.habilidad = false;
+         puntosJugador = 0, puntosIA = 0;
+         ball.init(640, 360);
          contador = 30;
          resetPositionsAndPause(1280, 720, true);
          

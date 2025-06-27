@@ -52,8 +52,13 @@ void processInput() {
         }
     }
 }
+
 void movement(float deltaTime) {
     player.move(deltaTime, 720);
     ball.move(deltaTime);
+    ball.limitarPantalla(720);
+    ball.ballTimerHability(deltaTime);
+
+
 }
 

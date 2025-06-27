@@ -9,7 +9,7 @@ void Player::init(float x, float y, int w, int h, float s) {
 }
 
 void Player::move(float deltaTime, int screenHeight) {
-    // === Detección de Dash ===
+    // Deteccion de Dash 
     if (dashTimer > 0.0f) {
         dashTimer -= deltaTime;
         if (dashTimer < 0.0f) dashTimer = 0.0f;
@@ -21,13 +21,13 @@ void Player::move(float deltaTime, int screenHeight) {
         dashTimer = dashCooldown;
     }
 
-    // === Movimiento Normal ===
+    // Movimiento Normal 
     if (!enDash && !volviendoDash) {
         if (up) posY -= speed * deltaTime;
         if (down) posY += speed * deltaTime;
     }
 
-    // === Dash Activo ===
+    // Dash Activo
     if (enDash) {
         posX += speed * 1.5f * deltaTime;
         if (posX >= posXOriginal + 150) {
@@ -43,7 +43,7 @@ void Player::move(float deltaTime, int screenHeight) {
         }
     }
 
-    // === Límite pantalla ===
+    // Límite
     if (posY < 0) posY = 0;
     if (posY + height > screenHeight)
         posY = screenHeight - height;

@@ -1,5 +1,5 @@
 #include "ball.h"
-#include <cstdlib> // rand
+#include <cstdlib> 
 
 void Ball::init(float x, float y, float vX, float vY) {
     posX = x;
