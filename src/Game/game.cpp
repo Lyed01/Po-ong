@@ -33,8 +33,6 @@ TTF_Font* fuenteGrande;
 TTF_Font* fuenteMediana;
 SDL_Surface* textoSurface;
 SDL_Texture* textoTexture;
-
-SDL_Color color = { 0,0,0 };
 Player player;
 Player ia;
 Ball ball;
@@ -59,14 +57,7 @@ Dificultad dificultadSeleccionada = FACIL;
 
 
 //VARIABLES PELOTA
-bool pelotaConHabilidad = false;
-float tiempoHabilidad = 0.0f;
-const float DURACION_HABILIDAD = 3.0f;  // Segundos que dura el efecto en la pelota
-float cooldownHabilidad = 0.0f;
-const float COOLDOWN_HABILIDAD = 5.0f;  // Segundos que debe esperar el jugador para volver a activar
-
-
-const float duracionPausa = 2.0f; // segundos de pausa tras un punto
+const float duracionPausa = 0.5f; // segundos de pausa tras un punto
 
 //VARIABLES IA
 bool iaModoFullTracking = false;
@@ -78,52 +69,15 @@ float iaDashCooldown = 7.0f;
 float iaDashTimer = 0.0f;
 
 
-void ball_init(float x, float y) {
-    ball.posX = x;
-    ball.posY = y;
-    ball.velocidadX = 500;
-    ball.velocidadY = 300;
-    ball.width = 75;
-    ball.height = 75;
-}//inicializar objeto y caracteristicas
-void player_init(float x, float y) {
-    player.posX = x;
-    player.posY = y;
-    player.width = 100;
-    player.height = 200;
-    player.speed = 1000;
-}//inicializar objeto y caracteristicas
 void ia_init(float x, float y) {
     ia.posX = x;
     ia.posY = y;
     ia.width = 100;
     ia.height = 200;
-    ia.speed = 600;
+    ia.speed = 500;
 }//inicializar objeto y caracteristicas
 
-void checkCollisions(int ventanaAlto, int ventanaAncho) {
-    if (ball.posY <= 0) {
-        ball.posY = 0;  // Reposicioná dentro del área
-        ball.velocidadY *= -1;
-    }
-
-    if (ball.posY + ball.height >= ventanaAlto) {
-        ball.posY = ventanaAlto - ball.height;  // Reposicioná dentro del área
-        ball.velocidadY *= -1;
-    }
-
-   
-   
-   
-}//Colisiones entre la pelota y la pantalla
-
-void aplicarHabilidadEnPelota() {
-    pelotaConHabilidad = true;
-    ball.width = 200;
-    ball.height = 200;
-}
-
-bool checkPaddleCollision(Player& paddle, Ball& ball, bool isPlayer) {
+bool checkPaddleCollision(Player& paddle, Ball& ball, bool isPlayer, float deltatime) {
     if (ball.posX <= paddle.posX + paddle.width &&
         ball.posX + ball.width >= paddle.posX &&
         ball.posY + ball.height >= paddle.posY &&
@@ -150,7 +104,7 @@ bool checkPaddleCollision(Player& paddle, Ball& ball, bool isPlayer) {
         ball.velocidadY = diffY * 7;
 
         if (paddle.special) {
-            aplicarHabilidadEnPelota();
+            ball.aplicarHabilidad(deltatime);
             paddle.special = false; // resetear el estado de habilidad
         }
 
@@ -158,7 +112,6 @@ bool checkPaddleCollision(Player& paddle, Ball& ball, bool isPlayer) {
     }
     return false;
 }
-
 void resetPositionsAndPause(int ventanaAncho, int ventanaAlto, bool puntoJugador) {
     // Reset pelota
     ball.posX = ventanaAncho / 2.0f;
@@ -178,7 +131,6 @@ void resetPositionsAndPause(int ventanaAncho, int ventanaAlto, bool puntoJugador
     enPausa = true;
     timerPausa = duracionPausa;
 }
-
 void updateIA(float deltaTime, int canchaMitadX) {
     // === Control del cambio de modo (full tracking o medio campo) ===
     iaModeTimer += deltaTime;
@@ -210,6 +162,7 @@ void updateIA(float deltaTime, int canchaMitadX) {
 
     // === Movimiento horizontal (dash) ===
     if (iaEnDash) {
+        ia.special = true;
         ia.posX -= ia.speed * 1.5f * deltaTime;
         if (ia.posX <= iaPosXOriginal - 100) {
             iaEnDash = false;
@@ -270,52 +223,15 @@ void checkPoints(int ventanaAncho, int ventanaAlto) {
     }
 }
 
-void renderContador() {
-    if (contador < 0) return;  // No mostrar si es negativo
-
-    string texto = to_string(contador);
-    SDL_Surface* surface = TTF_RenderText_Solid(fuente, texto.c_str(), { 255, 255, 255 });
-
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
-
-    int texW = 0, texH = 0;
-    SDL_QueryTexture(texture, nullptr, nullptr, &texW, &texH);
-
-    // Centrar arriba: x = (ancho_ventana - ancho_texto)/2, y = 20 px desde arriba
-    SDL_Rect dstRect = { (1280 - texW) / 2, 20, texW, texH };
-
-    SDL_RenderCopy(renderer, texture, nullptr, &dstRect);
-
-    SDL_FreeSurface(surface);
-    SDL_DestroyTexture(texture);
-}
-
-void mostrarPuntajes(TTF_Font* fuente, int puntaje, bool esJugador) {
-    string texto = to_string(puntaje);
-    textoSurface = TTF_RenderText_Solid(fuente, texto.c_str(), {250,250,250});
-    textoTexture = SDL_CreateTextureFromSurface(renderer, textoSurface);
-
-    int texW = 0, texH = 0;
-
-    SDL_QueryTexture(textoTexture, nullptr, nullptr, &texW, &texH);
-    SDL_Rect dstRect = { 1200, 20, texW, texH };
-    if (esJugador) {
-        dstRect = { 40, 20, texW, texH };
-    }
- 
-    SDL_RenderCopy(renderer, textoTexture, nullptr, &dstRect);
-    SDL_FreeSurface(textoSurface);
-    SDL_DestroyTexture(textoTexture);
-}
-
 void render() {
+
     SDL_SetRenderDrawColor(renderer, 120, 140, 220, 200);
     SDL_RenderClear(renderer);
 
     if (pantallaDeJuego) {
         mostrarLaImagen(imagenFondoJuego, 0, 0, 1280, 720, renderer);
 
-        if (pelotaConHabilidad) {
+        if (ball.habilidad) {
             mostrarLaImagen(imagenPelotaHabilidad, (int)ball.posX, (int)ball.posY, ball.width, ball.height, renderer);
         }
         else {
@@ -326,7 +242,10 @@ void render() {
         mostrarLaImagen(imagenIA, (int)ia.posX, (int)ia.posY, ia.width, ia.height, renderer);
         mostrarPuntajes(fuente, puntosIA, false);
         mostrarPuntajes(fuente, puntosJugador, true);
-        renderContador();
+        if (contador < 0) return; 
+
+        string texto = to_string(contador);
+        renderTexto(texto, 620, 20, {250,250,250}, fuente);
     }
     else if (pantallaDeMenu) {
         mostrarLaImagen(imagenFondoMenu, 0, 0, 1280, 720, renderer);
@@ -349,7 +268,7 @@ void render() {
                 pantallaDeResultado = false;
                 pantallaDeMenu = false;
                 pantallaDeJuego = true;
-                contador = 3;
+                
             }
         }
 
@@ -401,43 +320,17 @@ void render() {
 
         if (puntosJugador > puntosIA) {
             mostrarLaImagen(imagenVictoria, 0, 0, 1280, 720, renderer);
-            textoSurface = TTF_RenderText_Solid(fuenteGrande, "Victoria", { 250,250,250 });
-            textoTexture = SDL_CreateTextureFromSurface(renderer, textoSurface);
-            int texW = 100, texH = 100;
-            SDL_QueryTexture(textoTexture, nullptr, nullptr, &texW, &texH);
-            SDL_Rect dstRect = { 250, 100, texW, texH };
-
-            SDL_RenderCopy(renderer, textoTexture, nullptr, &dstRect);
-            SDL_FreeSurface(textoSurface);
-            SDL_DestroyTexture(textoTexture);
+            renderTexto("Victoria", 250, 150, { 250,250,250 }, fuenteGrande);
 
         }
         else if(puntosJugador == puntosIA) {
             mostrarLaImagen(imagenEmpate, 0, 0, 1280, 720, renderer);
-            textoSurface = TTF_RenderText_Solid(fuenteGrande, "Empate", { 250,250,250 });
-            textoTexture = SDL_CreateTextureFromSurface(renderer, textoSurface);
-            int texW = 100, texH = 100;
-            SDL_QueryTexture(textoTexture, nullptr, nullptr, &texW, &texH);
-            SDL_Rect dstRect = { 300, 100, texW, texH };
-
-            SDL_RenderCopy(renderer, textoTexture, nullptr, &dstRect);
-            SDL_FreeSurface(textoSurface);
-            SDL_DestroyTexture(textoTexture);
+            renderTexto("Empate", 300, 150, { 250,250,250 }, fuenteGrande);
         }
 
-        else {
+        else { 
             mostrarLaImagen(imagenDerrota, 0, 0, 1280, 720, renderer);
-            textoSurface = TTF_RenderText_Solid(fuenteGrande, "Derrota", {250,250,250});
-            textoTexture = SDL_CreateTextureFromSurface(renderer, textoSurface);
-            
-
-            int texW = 100, texH = 100;
-            SDL_QueryTexture(textoTexture, nullptr, nullptr, &texW, &texH);
-            SDL_Rect dstRect = {  250, 150, texW, texH  };
-
-            SDL_RenderCopy(renderer, textoTexture, nullptr, &dstRect);
-            SDL_FreeSurface(textoSurface);
-            SDL_DestroyTexture(textoTexture);
+            renderTexto("Derrota", 250, 150, { 250,250,250 }, fuenteGrande);
         }
         int mouseX, mouseY;
         SDL_GetMouseState(&mouseX, &mouseY);
@@ -468,52 +361,11 @@ void render() {
     };
     SDL_RenderPresent(renderer);
 }
-
-static void updateGame(float deltaTime) {
-    const float VELOCIDAD_INCREMENTO = 1.0008f;
-    static float iaReactionTimer = 0.0f;
-  
-
-     if (pantallaDeJuego) {
-        if (contador > 0) {
-            tiempoParaActualizar -= deltaTime;
-            if (tiempoParaActualizar <= 0.0f) {
-                contador--;
-                tiempoParaActualizar = 1.0f;
-            }
-        }
-        if (contador == 0) {
-            pantallaDeJuego = false;
-            pantallaDeResultado = true;
-        }
-        if (enPausa) {
-            timerPausa -= deltaTime;
-            if (timerPausa <= 0.0f) {
-                enPausa = false;
-            }
-            return; // Salimos sin actualizar movimientos ni colisiones
-        }
-        renderContador();
-        movement(deltaTime);
-        checkPoints(1280, 720);
-        checkCollisions(720, 1280);
-        updateIA(deltaTime, 640);
-        cout << iaModoFullTracking;
-        checkPaddleCollision(player, ball, true);
-        checkPaddleCollision(ia, ball, false);
-
-
-    }
-
-    else if (pantallaDeResultado) {};
-    
-}
-
 static void initGame() {
 
     SDL_Init(SDL_INIT_EVERYTHING);
     TTF_Init();
-   
+
 
     if (Mix_Init(MIX_INIT_OGG | MIX_INIT_MP3) == 0) {
         cerr << "Error en Mix_Init: " << Mix_GetError() << endl;
@@ -535,11 +387,12 @@ static void initGame() {
     fuente = TTF_OpenFont("assets/fonts/team401.TTF", 20);
     fuenteMediana = TTF_OpenFont("assets/fonts/team401.TTF", 40);
     fuenteGrande = TTF_OpenFont("assets/fonts/team401.TTF", 80);
-    player_init(0, 300);
+    player.init(0, 300);
     ia_init(1200, 300);
-    ball_init(640, 360);
+    ball.init(640, 360);
 
-    
+
+
     musicaFondo = Mix_LoadMUS("assets/audio/Submerged.ogg");
 
     for (int i = 0; i < NUM_SONIDOAGUA; ++i) {
@@ -552,8 +405,8 @@ static void initGame() {
     sonidoPunto = Mix_LoadWAV("assets/audio/SONIDOAGUA12.wav");
 
     if (musicaFondo) Mix_PlayMusic(musicaFondo, -1); // -1 = loop infinito
- 
-    
+
+
     // Ajustar volumen de música y efectos
     Mix_VolumeMusic(40); // Música al 30% aprox
 
@@ -566,6 +419,52 @@ static void initGame() {
         Mix_VolumeChunk(sonidoPunto, 70);
     }
 }
+
+static void updateGame(float deltaTime) {  
+
+     if (pantallaDeJuego) {
+        if (contador > 0) {
+            tiempoParaActualizar -= deltaTime;
+            if (tiempoParaActualizar <= 0.0f) {
+                contador--;
+                tiempoParaActualizar = 1.0f;
+            }
+        }
+        if (contador == 0) {
+            pantallaDeJuego = false;
+            pantallaDeResultado = true;
+        }
+        if (enPausa) {
+            timerPausa -= deltaTime;
+            if (timerPausa <= 0.0f) {
+                enPausa = false;
+            }
+            return; // Salimos sin actualizar movimientos ni colisiones
+        }
+
+        ball.ballTimerHability(deltaTime);
+        movement(deltaTime);
+        checkPoints(1280, 720);
+        ball.limitarPantalla(720);
+        updateIA(deltaTime, 840);
+        checkPaddleCollision(player, ball, true, deltaTime);
+        checkPaddleCollision(ia, ball, false, deltaTime);
+     
+
+    }
+     else if (pantallaDeResultado) {
+         puntosJugador, puntosIA = 0;
+     }
+     else if (pantallaDeMenu) {
+         ball.habilidad = false;
+         contador = 30;
+         resetPositionsAndPause(1280, 720, true);
+         
+     };
+    
+}
+
+
 
 void runGame() {
 

@@ -2,7 +2,6 @@
 
 #ifndef GLOBALS_H
 #define GLOBALS_H
-
 #include <SDL.h>
 #include "Player/player.h"
 #include "Ball/ball.h"

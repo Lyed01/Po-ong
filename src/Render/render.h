@@ -17,4 +17,4 @@ void mostrarLaImagen(SDL_Texture* texture, int x, int y, int w, int h, SDL_Rende
 
 void renderTexto(const string& texto, int x, int y, SDL_Color color, TTF_Font* fuente);
 
-void mostrarPuntajes(TTF_Font* fuente, int puntaje, bool esJugador)
+void mostrarPuntajes(TTF_Font* fuente, int puntaje, bool esJugador);

@@ -1,13 +1,16 @@
-#ifndef BALL_H
-#define BALL_H
+#pragma once
 
-typedef struct Ball {
-    int height;
-    int width;
-    float posX;
-    float posY;
-    float velocidadX;
-    float velocidadY;
-} Ball;
+struct Ball {
+    float posX, posY;
+    float velocidadX, velocidadY;
+    int width, height;
+    bool habilidad;
+    float tiempoHabilidad;
 
-#endif 
+    void init(float x, float y, float vX = 500.0f, float vY = 300.0f);
+    void move(float deltaTime);
+    void aplicarHabilidad(float deltaTime);
+    void reset(int ventanaAncho, int ventanaAlto, bool haciaJugador);
+    void limitarPantalla(int ventanaAlto);
+    void ballTimerHability(float deltatime);
+};

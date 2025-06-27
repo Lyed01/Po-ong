@@ -1,20 +1,18 @@
+#pragma once
 
-// Declara las funciones para inicializar la paleta
-// , actualizar su posición y dibujarla, además de funciones para obtener su posición o estado.
-// player.h
-#pragma once     
+struct Player {
+    float posX, posY;
+    int width, height;
+    float speed;
+    bool up = false, down = false, special = false;
 
-// Estructura del jugador
+    // Dash
+    bool enDash = false;
+    bool volviendoDash = false;
+    float dashCooldown = 7.0f;
+    float dashTimer = 0.0f;
+    float posXOriginal = 0.0f;
 
- typedef struct Player {
-        int width;
-        int height;
-        float posX;
-        float posY;
-        float speed;
-        bool up = false;
-        bool down = false;
-        bool special = false;
-    } Player;
-
-
+    void init(float x, float y, int w = 100, int h = 200, float s = 1000.0f);
+    void move(float deltaTime, int screenHeight);
+};

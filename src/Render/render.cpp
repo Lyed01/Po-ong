@@ -1,6 +1,5 @@
-#include "render.h"
 #include "../globals.h"
-
+#include "../Render/render.h"
 SDL_Texture* cargarLaImagen(string filename, SDL_Renderer* renderer)
 {
 	SDL_Texture* texture; //variable temporal
@@ -39,8 +38,8 @@ void renderTexto(const string& texto, int x, int y, SDL_Color color, TTF_Font* f
 
 void mostrarPuntajes(TTF_Font* fuente, int puntaje, bool esJugador) {
     string texto = to_string(puntaje);
-    textoSurface = TTF_RenderText_Solid(fuente, texto.c_str(), {250,250,250});
-    textoTexture = SDL_CreateTextureFromSurface(renderer, textoSurface);
+    SDL_Surface* textoSurface = TTF_RenderText_Solid(fuente, texto.c_str(), {250,250,250});
+    SDL_Texture* textoTexture = SDL_CreateTextureFromSurface(renderer, textoSurface);
 
     int texW = 0, texH = 0;
 

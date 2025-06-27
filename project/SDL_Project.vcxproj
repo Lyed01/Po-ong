@@ -218,8 +218,10 @@ xcopy "$(ProjectDir)..\assets" "$(OutDir)\assets" /Y  /E /C /I</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="../src/SDL_Project.cpp" />
+    <ClCompile Include="..\src\Ball\ball.cpp" />
     <ClCompile Include="..\src\Game\game.cpp" />
     <ClCompile Include="..\src\Input\input.cpp" />
+    <ClCompile Include="..\src\Player\player.cpp" />
     <ClCompile Include="..\src\Render\render.cpp" />
   </ItemGroup>
   <ItemGroup>
