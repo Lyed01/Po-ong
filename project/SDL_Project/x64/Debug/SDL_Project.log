@@ -1,6 +1,4 @@
-﻿  game.cpp
-C:\Users\Casto\source\repos\Po-ong\src\Game\game.cpp(157,50): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-  SDL_Project.vcxproj -> C:\Users\Casto\Source\Repos\Po-ong\project\x64\Debug\SDL_Project.exe
+﻿  SDL_Project.vcxproj -> C:\Users\Casto\Source\Repos\Po-ong\project\x64\Debug\SDL_Project.exe
   C:\Users\Casto\Source\Repos\Po-ong\project\..\libs\SDL2_image\lib\x64\libjpeg-9.dll
   C:\Users\Casto\Source\Repos\Po-ong\project\..\libs\SDL2_image\lib\x64\libpng16-16.dll
   C:\Users\Casto\Source\Repos\Po-ong\project\..\libs\SDL2_image\lib\x64\libtiff-5.dll

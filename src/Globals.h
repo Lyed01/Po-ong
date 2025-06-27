@@ -6,7 +6,6 @@
 #include "Player/player.h"
 #include "Ball/ball.h"
 
-// Declaraciones (extern => existe en algún .cpp)
 extern SDL_Renderer* renderer;
 extern SDL_Window* window;
 extern SDL_Texture* imagenFondoMenu;

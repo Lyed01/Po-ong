@@ -44,29 +44,19 @@ Ball ball;
 //VARIABLES DE JUEGO
 bool isGameRunning = true;
 int contador;
-int puntosJugador = 0;
-int puntosIA = 0;
-int puntosJugador = 0;
-int puntosIA = 0;
 bool pantallaDeMenu = true;
 bool pantallaDeJuego = false;
 bool pantallaDeResultado = false;
-bool enPausa = false;
-float timerPausa = 0.0f;
-float tiempoParaActualizar = 1;
 int puntosJugador = 0;
 int puntosIA = 0;
 bool resultado = false;
 bool esJugador = false;
-
-//VARIABLES PELOTA
-const float duracionPausa = 0.5f; // segundos de pausa tras un punto
-
-
-//VARIABLES PELOTA
-const float duracionPausa = 0.5f; // segundos de pausa tras un punto
-
-const float duracionPausa = 0.5f; // segundos de pausa tras un punto
+bool enPausa = false;
+float timerPausa = 0.0f;
+float tiempoParaActualizar = 1;
+enum Dificultad { FACIL, DIFICIL };
+Dificultad dificultadSeleccionada = FACIL;
+const float duracionPausa = 0.5f;
 
 //VARIABLES IA
 bool iaModoFullTracking = false;
@@ -84,7 +74,6 @@ void ia_init(float x, float y) {
     ia.height = 200;
     ia.speed = 500;
 }
-
 
 void updateIA(float deltaTime, int canchaMitadX) {
     // Control del cambio de modo 
@@ -116,6 +105,7 @@ void updateIA(float deltaTime, int canchaMitadX) {
     }
 
     if (iaEnDash) {
+        ball.aplicarHabilidad(deltaTime);
         ia.special = true;
         ia.posX -= ia.speed * 1.5f * deltaTime;
         if (ia.posX <= iaPosXOriginal - 100) {
@@ -455,24 +445,21 @@ static void updateGame(float deltaTime) {
             if (timerPausa <= 0.0f) {
                 enPausa = false;
             }
-            return; // Salimos sin actualizar movimientos ni colisiones
-     else if (pantallaDeMenu) {
-         puntosJugador = 0, puntosIA = 0;
-         ball.init(640, 360);
+            return; 
+        }
+
+        movement(deltaTime);
         checkPoints(1280, 720);
-     else if (pantallaDeResultado) {
-         puntosJugador, puntosIA = 0;
-     }
-     else if (pantallaDeMenu) {
-         ball.habilidad = false;
+        updateIA(deltaTime, 850);
+        checkPaddleCollision(player, ball, true, deltaTime);
+        checkPaddleCollision(ia, ball, false, deltaTime);
      
-     else if (pantallaDeResultado) {
-         puntosJugador, puntosIA = 0;
-     }
+
+    }
      else if (pantallaDeMenu) {
-         ball.habilidad = false;
-         puntosJugador = 0, puntosIA = 0;
          ball.init(640, 360);
+         puntosJugador, puntosIA = 0;
+         ball.habilidad = false;
          contador = 30;
          resetPositionsAndPause(1280, 720, true);
     };
