@@ -36,3 +36,21 @@ void renderTexto(const string& texto, int x, int y, SDL_Color color, TTF_Font* f
     SDL_FreeSurface(surface);
     SDL_DestroyTexture(texture);
 }
+
+void mostrarPuntajes(TTF_Font* fuente, int puntaje, bool esJugador) {
+    string texto = to_string(puntaje);
+    textoSurface = TTF_RenderText_Solid(fuente, texto.c_str(), {250,250,250});
+    textoTexture = SDL_CreateTextureFromSurface(renderer, textoSurface);
+
+    int texW = 0, texH = 0;
+
+    SDL_QueryTexture(textoTexture, nullptr, nullptr, &texW, &texH);
+    SDL_Rect dstRect = { 1200, 20, texW, texH };
+    if (esJugador) {
+        dstRect = { 40, 20, texW, texH };
+    }
+ 
+    SDL_RenderCopy(renderer, textoTexture, nullptr, &dstRect);
+    SDL_FreeSurface(textoSurface);
+    SDL_DestroyTexture(textoTexture);
+}
