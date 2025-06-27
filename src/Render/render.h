@@ -10,10 +10,11 @@
 
 using namespace std;
 
-// Carga una imagen y devuelve la textura SDL correspondiente
+
 SDL_Texture* cargarLaImagen(string filename, SDL_Renderer* renderer);
 
-// Muestra la textura en las coordenadas (x, y)
 void mostrarLaImagen(SDL_Texture* texture, int x, int y, int w, int h, SDL_Renderer* renderer);
 
 void renderTexto(const string& texto, int x, int y, SDL_Color color, TTF_Font* fuente);
+
+void mostrarPuntajes(TTF_Font* fuente, int puntaje, bool esJugador)
